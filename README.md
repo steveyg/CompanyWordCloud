@@ -14,7 +14,7 @@
 
 详细思路可参考[文章](https://blog.csdn.net/steveyg/article/details/86590291)
 
-##使用方式
+## 使用方式
 1.通过git clone或者直接下载源码
 
 2.通过```pip install -r requirement.txt```安装所需依赖
@@ -23,11 +23,11 @@
 
 4.输入```python main.py -k keyword```即可查询以keyword为关键词的信息
 
-##运行结果
+## 运行结果
 ![image](doc/runtime.png)
 
 ![image](doc/result.png)
 
-##注
+## 注
 - 分析所用数据均来自黑猫投诉，解释权归其所有
 - 请勿用于商业用途
