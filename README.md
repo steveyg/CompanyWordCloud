@@ -19,7 +19,9 @@
 
 2.通过```pip install -r requirement.txt```安装所需依赖
 
-3.输入```python main.py -k keyword```即可查询以keyword为关键词的信息
+3.修改del_list设置移除单词，suggest_list设置自定义词库
+
+4.输入```python main.py -k keyword```即可查询以keyword为关键词的信息
 
 ##运行结果
 ![image](doc/runtime.png)

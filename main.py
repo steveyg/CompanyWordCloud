@@ -3,6 +3,7 @@ import ssl
 import json
 import time
 import jieba
+import jieba.posseg as pseg
 import img_utils
 import argparse
 from urllib import parse
@@ -41,15 +42,41 @@ def main(keywords):
         time.sleep(1)
     img_utils.draw(word,filename=keywords)
 
+#检测分词词性，创建自定义词典
+def word_type(string):
+    words = pseg.cut(string)
+    temp = None
+    for word, flag in words:
+        if flag == 'n':
+            if temp == None:
+                temp = word
+        elif flag == 'v':
+            if temp != None:
+                print(temp + word)
+                temp = None
+        # print('%s %s' % (word, flag))
+
 def handle(list,keywords):
     word = ""
     for item in list:
-        seg_list = jieba.cut(p.sub("", item['main']['title']), cut_all=False)
+        s = p.sub("", item['main']['title'])
+        # word_type(s)
+        seg_list = jieba.cut(s, cut_all=False)
         for seg in seg_list:
             if seg != keywords:
                 word = word + " "
                 word = word + seg.strip()
     return word
+
+def init():
+    del_list = ["订单","取消"] #移除单词
+    suggest_list = ["取消订单","单方面取消","单方取消","单方面违约","无故退款","不发货","按时发货"]   #增加词库
+
+    for word in del_list:
+        jieba.del_word(word)
+
+    for word in suggest_list:
+        jieba.suggest_freq(word,True)
 
 if __name__ == '__main__':
     argparser = argparse.ArgumentParser(
@@ -59,4 +86,5 @@ if __name__ == '__main__':
         help='The keyword you want to serach'
     )
     args = argparser.parse_args()
+    init()
     main(args.keyword)
